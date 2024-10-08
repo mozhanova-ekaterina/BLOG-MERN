@@ -44,7 +44,8 @@ export const getOne = async (req, res) => {
   try {
     const postId = req.params.id;
 
-    let doc = await Post.findByIdAndUpdate(
+    const doc = await Post.findByIdAndUpdate(
+      //Model.findByIdAndUpdate(id, обновление, параметры)
       { _id: postId }, //filter
       { $inc: { viewsCount: 1 } }, //increment
       { new: true } //вернуть обновлённый результат
@@ -52,6 +53,10 @@ export const getOne = async (req, res) => {
       path: "author",
       select: ["fullname", "avatarUrl"],
     });
+
+    if (!doc) {
+      return res.status(404).json({ message: "Статья не найдена" });
+    }
 
     res.json(doc);
   } catch (error) {
@@ -62,7 +67,51 @@ export const getOne = async (req, res) => {
   }
 };
 
-// let doc = await PostModel.findOneAndUpdate(
-//   { _id: postId },
-//   { $inc: { viewsCount: 1 } }
-// );
+export const remove = async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    const doc = await Post.deleteOne({ _id: postId });
+
+    if (!doc) {
+      return res.status(404).json({ message: "Статья не найдена" });
+    }
+
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Не удалось удалить статью",
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const doc = await Post.findByIdAndUpdate(
+      { _id: postId },
+      {
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags,
+        author: req.userId,
+      },
+      { new: true }
+    );
+
+    if (!doc) {
+      return res.status(404).json({ message: "Статья не найдена" });
+    }
+
+    res.json(doc);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Не удалось обновить статью",
+    });
+  }
+};
