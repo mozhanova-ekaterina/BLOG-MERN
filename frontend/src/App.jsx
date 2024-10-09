@@ -14,10 +14,10 @@ function App() {
       <Container size={3} px={"6"}>
         <Header />
         {/* <Home /> */}
-        {/* <FullPost /> */}
+        <FullPost />
         {/* <AddPost /> */}
         {/* <Login /> */}
-        <Registration />
+        {/* <Registration /> */}
       </Container>
     </>
   );

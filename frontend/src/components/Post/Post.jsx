@@ -9,20 +9,30 @@ import {
   Text,
 } from "@radix-ui/themes";
 import React from "react";
+import PostSkeleton from "./Skeleton";
+import { Link } from "react-router-dom";
 
-const PostPreview = ({
+const Post = ({
+  _id,
   title,
-  src,
+  imageUrl,
   author,
-  date,
+  createdAt,
   tags,
   viewsCount,
   commentsCount,
+  isFullPost,
+  isLoading,
+  text,
 }) => {
+  if (isLoading) {
+    return <PostSkeleton />;
+  }
+
   return (
     <Card>
       <Flex direction={"column"} gap={"4"}>
-        <img src={src} alt="image" />
+        <img src={imageUrl} alt="image" />
         <Flex gap={"2"} align={"center"}>
           <Avatar radius="full" fallback="A" />
           <Box>
@@ -30,16 +40,19 @@ const PostPreview = ({
               {author}
             </Text>
             <Text size={"1"} as="p" className=" text-[#1915014A]">
-              {date}
+              {createdAt}
             </Text>
           </Box>
         </Flex>
-        <Heading size={"8"}>{title}</Heading>
+        <Link to={'/posts/:id'}><Heading size={"8"}>{title}</Heading></Link>
         <Flex gap={"3"} wrap={"wrap"}>
-          {tags.map((tag) => (
-            <Button variant="ghost">#{tag}</Button>
+          {tags.map((tag, i) => (
+            <Button key={i} variant="ghost">
+              #{tag}
+            </Button>
           ))}
         </Flex>
+        {isFullPost && <Text>{text}</Text>}
         <Flex gap={"4"} className=" text-[#1915014A]">
           <Flex gap={"2"}>
             <EyeOpenIcon />
@@ -55,4 +68,4 @@ const PostPreview = ({
   );
 };
 
-export default PostPreview;
+export default Post;
