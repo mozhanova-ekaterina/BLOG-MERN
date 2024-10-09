@@ -44,7 +44,7 @@ const Post = ({
             </Text>
           </Box>
         </Flex>
-        <Link to={'/posts/:id'}><Heading size={"8"}>{title}</Heading></Link>
+        <Link to={`/posts/:${_id}`}><Heading size={"8"}>{title}</Heading></Link>
         <Flex gap={"3"} wrap={"wrap"}>
           {tags.map((tag, i) => (
             <Button key={i} variant="ghost">

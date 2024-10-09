@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Center from "../layout/Center";
 import SideBlock from "../layout/SideBlock";
 import { Container, Flex } from "@radix-ui/themes";
@@ -10,7 +10,7 @@ import Header from "../components/Header";
 const Home = () => {
   return (
     <Container size={3} px={"6"}>
-      <Header/>
+      <Header />
       <Flex gap={"30px"} direction={{ initial: "column", sm: "row" }}>
         <Center>
           <PostsTabs />
