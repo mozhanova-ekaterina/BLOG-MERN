@@ -3,9 +3,9 @@ import React from "react";
 
 const Header = () => {
   return (
-    <Flex gap={'5'} justify={"between"} align={'center'} height={'70px'}>
+    <Flex gap={"5"} justify={"between"} align={"center"} height={"70px"}>
       <Button>BLOG</Button>
-      <Flex gap={'2'}>
+      <Flex gap={"2"}>
         <Button variant="surface">Войти</Button>
         <Button>Создать аккаунт</Button>
       </Flex>
