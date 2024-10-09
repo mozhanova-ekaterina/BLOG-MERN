@@ -8,6 +8,7 @@ import {
 } from "./validations.js";
 import { PostController, UserController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
+import cors from 'cors'
 
 mongoose
   .connect(
@@ -31,6 +32,7 @@ const upload = multer({ storage });
 
 app.use(express.json()); //учим express читать json, без этого запросы от клиента(request) распознаются как undefined//https://expressjs.com/en/5x/api.html#express.json
 app.use("/uploads", express.static("uploads")); //https://expressjs.com/en/5x/api.html#express.static
+app.use(cors())
 
 app.post(
   "/auth/login",
