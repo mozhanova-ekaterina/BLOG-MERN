@@ -22,3 +22,5 @@ export const postCreateValidation = [
   body("tags", "Неверный формат тэгов(укажите массив)").optional().isArray(),
   body("imageUrl", "Неверная ссылка на изображение").optional().isString(),
 ];
+
+//https://express-validator.github.io/docs/api/express-validator

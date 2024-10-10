@@ -3,7 +3,9 @@ import Post from "./Post/Post";
 import { Flex, Tabs } from "@radix-ui/themes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../redux/slices/posts";
+
 const PostsTabs = () => {
+
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
   const isLoading = posts.status === "loading";

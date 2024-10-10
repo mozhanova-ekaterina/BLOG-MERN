@@ -1,5 +1,15 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
-import createAppSlice from "../utils/createAppSlice";
+
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
+  const { data } = await axios.get("/posts");
+  return data;
+});
+
+export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
+  const { data } = await axios.get("/tags");
+  return data;
+});
 
 const initialState = {
   posts: {
@@ -12,52 +22,36 @@ const initialState = {
   },
 };
 
-export const postsSlice = createAppSlice({
+export const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: (create) => ({
-    fetchPosts: create.asyncThunk(
-      async () => {
-        const { data } = await axios.get("/posts");
-        return data;
-      },
-      {
-        pending: (state) => {
-          state.posts.status = "loading";
-          state.posts.items = [];
-        },
-        rejected: (state) => {
-          state.posts.status = "error";
-          state.posts.items = [];
-        },
-        fulfilled: (state, action) => {
-          state.posts.status = "loaded";
-          state.posts.items = action.payload;
-        },
-      }
-    ),
-    fetchTags: create.asyncThunk(
-      async () => {
-        const { data } = await axios.get("/tags");
-        return data;
-      },
-      {
-        pending: (state) => {
-          state.tags.status = "loading";
-          state.tags.items = [];
-        },
-        rejected: (state) => {
-          state.tags.status = "error";
-          state.tags.items = [];
-        },
-        fulfilled: (state, action) => {
-          state.tags.status = "loaded";
-          state.tags.items = action.payload;
-        },
-      }
-    ),
-  }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.posts.items = action.payload;
+      state.posts.status = "loaded";
+    });
+    builder.addCase(fetchPosts.rejected, (state) => {
+      state.posts.items = [];
+      state.posts.status = "loading";
+    });
+    builder.addCase(fetchPosts.pending, (state) => {
+      state.posts.items = [];
+      state.posts.status = "loading";
+    });
+    builder.addCase(fetchTags.fulfilled, (state, action) => {
+      state.tags.items = action.payload;
+      state.tags.status = "loaded";
+    });
+    builder.addCase(fetchTags.rejected, (state) => {
+      state.tags.items = [];
+      state.tags.status = "loading";
+    });
+    builder.addCase(fetchTags.pending, (state) => {
+      state.tags.items = [];
+      state.tags.status = "loading";
+    });
+  },
 });
 
 export default postsSlice.reducer;
-export const { fetchPosts, fetchTags } = postsSlice.actions;

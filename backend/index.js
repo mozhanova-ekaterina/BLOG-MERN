@@ -10,6 +10,7 @@ import { PostController, UserController } from "./controllers/index.js";
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 import cors from "cors";
 
+//https://my-js.org/docs/guide/mongoose/#запрос
 mongoose
   .connect(
     "mongodb+srv://pandafomka:linkinpark081294@cluster0.p3bfj.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0"
@@ -17,7 +18,7 @@ mongoose
   .then(() => console.log("DB ok"))
   .catch((err) => console.log("DB error", err));
 
-const app = express();
+const app = express();//https://expressjs.com/en/starter/hello-world.html
 const storage = multer.diskStorage({
   //There are two options available, destination and filename
   destination: (_, __, cb) => {
