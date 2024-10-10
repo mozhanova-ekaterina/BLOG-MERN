@@ -1,25 +1,52 @@
 import { Box, Button, Flex, Section } from "@radix-ui/themes";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-const isAuth = false;
+import { login, logout } from "../redux/slices/auth";
+import axios from "../axios";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.auth);
+  const handleLogOut = () => {
+    dispatch(logout());
+    window.localStorage.removeItem("token");
+  };
+
+  useEffect(() => {
+    axios
+      .get("/auth/me")
+      .then((res) => {
+        dispatch(login(res.data));
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }, []);
+
   return (
     <Flex gap={"5"} justify={"between"} align={"center"} height={"70px"}>
-      <Link to={'/'}><Button>BLOG</Button></Link>
+      <Link to={"/"}>
+        <Button>BLOG</Button>
+      </Link>
       <Flex gap={"2"}>
-        {isAuth ? (
+        {isAuth.data ? (
           <>
-            <Link to={'/add-post'}>
+            <Link to={"/add-post"}>
               <Button color="orange">Написать статью</Button>
             </Link>
-            <Button variant="surface">Выйти</Button>
+            <Button onClick={handleLogOut} variant="surface">
+              Выйти
+            </Button>
           </>
         ) : (
           <>
-            <Link to={'/login'}><Button variant="surface">Войти</Button></Link>
-            <Link to={'/registration'}><Button>Создать аккаунт</Button></Link>
+            <Link to={"/login"}>
+              <Button variant="surface">Войти</Button>
+            </Link>
+            <Link to={"/registration"}>
+              <Button>Создать аккаунт</Button>
+            </Link>
           </>
         )}
       </Flex>

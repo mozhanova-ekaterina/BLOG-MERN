@@ -44,3 +44,7 @@ createRoot(document.getElementById("root")).render(
     </Theme>
   // </StrictMode>
 );
+
+//https://redux-toolkit.js.org/introduction/getting-started
+//https://reactdev.ru/libs/react-router.6/tutorial/
+//https://www.radix-ui.com/
