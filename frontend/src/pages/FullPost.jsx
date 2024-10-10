@@ -1,35 +1,52 @@
 import { Container, Flex } from "@radix-ui/themes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CommentBlock from "../components/CommentBlock";
 import Post from "../components/Post/Post";
 import Header from "../components/Header";
-
-const post = {
-  title: "Тестовая статья",
-  src: "https://beautifoto.ru/wp-content/uploads/2019/07/14-4-1024x640.jpg",
-  author: "Виталий Романов",
-  date: "02 мая 2024г.",
-  tags: ["react", "vue"],
-  viewsCount: 10,
-  commentsCount: 2,
-  text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, non.",
-};
+import { useParams } from "react-router-dom";
+import axios from "../axios";
 
 const FullPost = () => {
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`/posts/${id}`)
+      .then((res) => {
+        setIsLoading(false);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.warn(err);
+        alert("Ошибка при получении статьи");
+      });
+  }, []);
+
+  if (isLoading)
+    return (
+      <Container size={3} px={"6"}>
+        <Header />
+        <Post isLoading={true} />
+      </Container>
+    );
+
   return (
     <Container size={3} px={"6"}>
       <Header />
       <Flex direction={"column"} gap={"5"} py={"5"}>
         <Post
+          _id={data._id}
           isLoading={false}
           isFullPost={true}
-          title={post.title}
-          imageUrl={post.src}
-          author={post.author}
-          createdAt={post.date}
-          tags={post.tags}
-          viewsCount={post.viewsCount}
-          text={post.text}
+          title={data.title}
+          imageUrl={data.imageUrl}
+          author={data.fullname}
+          createdAt={data.createdAt}
+          tags={data.tags}
+          viewsCount={data.viewsCount}
+          text={data.text}
         />
         <CommentBlock addComment={true} />
       </Flex>

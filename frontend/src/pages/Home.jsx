@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Center from "../layout/Center";
 import SideBlock from "../layout/SideBlock";
 import { Container, Flex } from "@radix-ui/themes";

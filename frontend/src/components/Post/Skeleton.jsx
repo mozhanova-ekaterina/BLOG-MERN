@@ -3,7 +3,7 @@ import React from "react";
 
 const PostSkeleton = () => {
   return (
-    <>
+    <Flex direction={"column"} gap={"4"}>
       <Skeleton minHeight={"400px"} loading="true" />
       <Flex gap={"2"} align={"center"}>
         <Skeleton>
@@ -29,7 +29,7 @@ const PostSkeleton = () => {
         <Skeleton height={"10px"} width={"30px"} />
         <Skeleton height={"10px"} width={"30px"} />
       </Flex>
-    </>
+    </Flex>
   );
 };
 

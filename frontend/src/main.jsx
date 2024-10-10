@@ -36,11 +36,11 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Theme accentColor="indigo" grayColor="sand" appearance="dark">
+  // <StrictMode>
+    <Theme accentColor="indigo" grayColor="sand" appearance="light">
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
     </Theme>
-  </StrictMode>
+  // </StrictMode>
 );

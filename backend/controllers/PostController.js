@@ -115,3 +115,21 @@ export const update = async (req, res) => {
     });
   }
 };
+
+export const getLastTags = async (req, res) => {
+  try {
+    const posts = await Post.find().limit(5).exec(); //берём только последние 5 статей
+    const tags = posts
+      .map((post) => post.tags)
+      .flat()//[[tags],[tags],[tags]]=>[tags,tags,tags]
+      .slice(0, 5); //берем последние 5 тэгов из этих статей
+
+    if(!tags) return res.status(404).json({message: 'Не удалось получить тэги'})
+    res.json(tags);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Не удалось получить тэги",
+    });
+  }
+};

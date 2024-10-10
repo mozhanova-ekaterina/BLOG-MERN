@@ -1,9 +1,5 @@
 import axios from "../../axios";
-import { buildCreateSlice, asyncThunkCreator } from '@reduxjs/toolkit'
-
-export const createAppSlice = buildCreateSlice({//https://redux-toolkit.js.org/api/createSlice#createasyncthunk
-  creators: { asyncThunk: asyncThunkCreator },
-})
+import createAppSlice from "../utils/createAppSlice";
 
 const initialState = {
   posts: {
@@ -40,8 +36,28 @@ export const postsSlice = createAppSlice({
         },
       }
     ),
+    fetchTags: create.asyncThunk(
+      async () => {
+        const { data } = await axios.get("/tags");
+        return data;
+      },
+      {
+        pending: (state) => {
+          state.tags.status = "loading";
+          state.tags.items = [];
+        },
+        rejected: (state) => {
+          state.tags.status = "error";
+          state.tags.items = [];
+        },
+        fulfilled: (state, action) => {
+          state.tags.status = "loaded";
+          state.tags.items = action.payload;
+        },
+      }
+    ),
   }),
 });
 
 export default postsSlice.reducer;
-export const {fetchPosts} = postsSlice.actions;
+export const { fetchPosts, fetchTags } = postsSlice.actions;

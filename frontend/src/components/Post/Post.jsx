@@ -32,7 +32,7 @@ const Post = ({
   return (
     <Card>
       <Flex direction={"column"} gap={"4"}>
-        <img src={imageUrl} alt="image" />
+        {imageUrl && <img src={imageUrl} alt="image" />}
         <Flex gap={"2"} align={"center"}>
           <Avatar radius="full" fallback="A" />
           <Box>
@@ -40,11 +40,17 @@ const Post = ({
               {author}
             </Text>
             <Text size={"1"} as="p" className=" text-[#1915014A]">
-              {createdAt}
+              {new Date(createdAt).toLocaleDateString()}
             </Text>
           </Box>
         </Flex>
-        <Link to={`/posts/:${_id}`}><Heading size={"8"}>{title}</Heading></Link>
+        {!isFullPost ? (
+          <Link to={`/posts/${_id}`}>
+            <Heading size={"8"}>{title}</Heading>
+          </Link>
+        ) : (
+          <Heading size={"8"}>{title}</Heading>
+        )}
         <Flex gap={"3"} wrap={"wrap"}>
           {tags.map((tag, i) => (
             <Button key={i} variant="ghost">
