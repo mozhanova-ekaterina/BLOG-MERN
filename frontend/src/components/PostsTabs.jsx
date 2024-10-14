@@ -30,7 +30,7 @@ const PostsTabs = () => {
               <Post
                 imageUrl={post.imageUrl}
                 title={post.title}
-                author={post.author.fullname}
+                author={post.author}
                 createdAt={post.createdAt}
                 tags={post.tags}
                 viewsCount={post.viewsCount}
