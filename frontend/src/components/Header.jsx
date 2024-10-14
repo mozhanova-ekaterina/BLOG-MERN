@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login, logout } from "../redux/slices/auth";
 import axios from "../axios";
-import { SunIcon } from "@radix-ui/react-icons";
+import { MoonIcon, Pencil2Icon, SunIcon } from "@radix-ui/react-icons";
 import { switchTheme } from "../redux/slices/theme";
 
 const Header = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth);
+  const theme = useSelector((state) => state.theme.color);
   const handleLogOut = () => {
     dispatch(logout());
     window.localStorage.removeItem("token");
   };
-  const theme = window.localStorage.getItem("theme");
   const switchThemeHandler = () => {
-    dispatch(switchTheme())
+    dispatch(switchTheme());
   };
 
   useEffect(() => {
@@ -31,15 +31,18 @@ const Header = () => {
   }, []);
 
   return (
-    <Flex gap={"5"} justify={"between"} align={"center"} height={"70px"}>
+    <Flex gap={"2"} justify={"between"} align={"center"} height={"70px"}>
       <Link to={"/"}>
         <Button>BLOG</Button>
       </Link>
-      <Flex gap={"3"}>
+      <Flex gap={{ initial: "2", xs: "3" }}>
         {isAuth.data ? (
           <>
             <Link to={"/add-post"}>
-              <Button color="orange">Написать статью</Button>
+              <Button color="orange">
+                <Box display={{initial: 'none', xs: 'block'}}>Написать статью</Box>
+                <Pencil2Icon/>
+              </Button>
             </Link>
             <Button onClick={handleLogOut} variant="surface">
               Выйти
@@ -55,8 +58,9 @@ const Header = () => {
             </Link>
           </>
         )}
-        <Flex align={"center"} gap={"1"}>
-          <SunIcon />
+        <Flex align={"center"} gap={"2"}>
+          {theme === "dark" && <MoonIcon />}
+          {theme === "light" && <SunIcon />}
           <Switch className="cursor-pointer" onClick={switchThemeHandler} />
         </Flex>
       </Flex>

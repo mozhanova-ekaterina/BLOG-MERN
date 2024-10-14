@@ -16,7 +16,7 @@ import {
 import React from "react";
 import PostSkeleton from "./Skeleton";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchPosts, removePost } from "../../redux/slices/posts";
 
 const Post = ({
@@ -32,12 +32,13 @@ const Post = ({
   isLoading,
   text,
   theme,
-  isEditable
+  isEditable,
 }) => {
   const dispatch = useDispatch();
   const removeHandler = (id) => {
-    dispatch(removePost(id));
-    dispatch(fetchPosts());
+    dispatch(removePost(id)).then(() => {
+      dispatch(fetchPosts());
+    });
   };
 
   if (isLoading) {
@@ -93,7 +94,10 @@ const Post = ({
           ))}
         </Flex>
         {isFullPost && <Text>{text}</Text>}
-        <Flex gap={"4"} className={theme === 'dark' ? 'text-white' : 'text-[#1915014A]'}>
+        <Flex
+          gap={"4"}
+          className={theme === "dark" ? "text-white" : "text-[#1915014A]"}
+        >
           <Flex gap={"2"}>
             <EyeOpenIcon />
             <Text size={"1"}>{viewsCount}</Text>
@@ -109,7 +113,6 @@ const Post = ({
 };
 
 export default Post;
-
 
 //TODO:
 //https://www.radix-ui.com/themes/docs/components/badge

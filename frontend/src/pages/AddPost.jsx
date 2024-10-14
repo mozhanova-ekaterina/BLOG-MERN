@@ -20,10 +20,15 @@ import {
 } from "@radix-ui/react-icons";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const AddPost = () => {
   const theme = useSelector((state) => state.theme.color);
+  const isAuth = useSelector((state) => state.auth.data);
 
+  if (!isAuth) {
+    return <Navigate to="/" />;
+  }
   return (
     <Theme accentColor="indigo" grayColor="sand" appearance={theme}>
       <Container size={3} px={"6"}>

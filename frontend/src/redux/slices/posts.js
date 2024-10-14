@@ -6,10 +6,10 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   return data;
 });
 
-export const removePost = createAsyncThunk('posts/removePost', async (id) => {
-  const {data} = await axios.delete(`/posts/${id}`)
-  return data
-})
+export const removePost = createAsyncThunk("posts/removePost", async (id) => {
+  const { data } = await axios.delete(`/posts/${id}`);
+  return data;
+});
 
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
   const { data } = await axios.get("/tags");
@@ -56,6 +56,10 @@ export const postsSlice = createSlice({
       state.tags.items = [];
       state.tags.status = "loading";
     });
+    // builder.addCase(removePost.fulfilled, (state, action) => {
+    //   state.posts.items = action.payload;
+    //   state.posts.status = "loaded";
+    // });
   },
 });
 

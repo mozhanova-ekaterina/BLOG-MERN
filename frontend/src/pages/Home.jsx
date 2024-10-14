@@ -10,9 +10,10 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const theme = useSelector(state => state.theme.color)
+
   return (
     <Theme accentColor="indigo" grayColor="sand" appearance={theme}>
-      <Container size={3} px={{ initial: "1", sm: "6" }}>
+      <Container size={3} px={{ initial: "3", sm: "6" }}>
         <Header />
         <Flex gap={"30px"} direction={{ initial: "column", sm: "row" }}>
           <Center>
