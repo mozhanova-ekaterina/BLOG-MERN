@@ -3,7 +3,7 @@ import { Section } from "@radix-ui/themes";
 
 const Center = ({ children }) => {
   return (
-    <Section flexGrow={"1"} flexBasis={"75%"}>
+    <Section flexGrow={"1"} py={{initial: '0', sm: '9'}}>
       {children}
     </Section>
   );

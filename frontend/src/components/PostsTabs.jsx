@@ -6,8 +6,9 @@ import { fetchPosts } from "../redux/slices/posts";
 
 const PostsTabs = () => {
   const dispatch = useDispatch();
+  const theme = useSelector(state => state.theme.color)
   const { posts } = useSelector((state) => state.posts);
-  
+  const authUserId = useSelector((state) => state.auth.data?._id);
   const isLoading = posts.status === "loading";
 
   useEffect(() => {
@@ -37,6 +38,8 @@ const PostsTabs = () => {
                 commentsCount={post.commentsCount}
                 key={i}
                 _id={post._id}
+                theme={theme}
+                isEditable={authUserId === post.author._id}
               />
             )
           )}

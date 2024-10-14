@@ -31,8 +31,9 @@ const Post = ({
   isFullPost,
   isLoading,
   text,
+  theme,
+  isEditable
 }) => {
-  const authUserId = useSelector((state) => state.auth.data?._id);
   const dispatch = useDispatch();
   const removeHandler = (id) => {
     dispatch(removePost(id));
@@ -59,7 +60,7 @@ const Post = ({
               </Text>
             </Box>
           </Flex>
-          {authUserId === author._id && (
+          {isEditable && (
             <Flex gap={"2"}>
               <Cross1Icon
                 onClick={() => removeHandler(_id)}
@@ -92,7 +93,7 @@ const Post = ({
           ))}
         </Flex>
         {isFullPost && <Text>{text}</Text>}
-        <Flex gap={"4"} className=" text-[#1915014A]">
+        <Flex gap={"4"} className={theme === 'dark' ? 'text-white' : 'text-[#1915014A]'}>
           <Flex gap={"2"}>
             <EyeOpenIcon />
             <Text size={"1"}>{viewsCount}</Text>
@@ -108,3 +109,7 @@ const Post = ({
 };
 
 export default Post;
+
+
+//TODO:
+//https://www.radix-ui.com/themes/docs/components/badge

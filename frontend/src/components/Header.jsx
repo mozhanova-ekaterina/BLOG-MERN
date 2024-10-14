@@ -1,9 +1,11 @@
-import { Box, Button, Flex, Section } from "@radix-ui/themes";
+import { Box, Button, Flex, Section, Switch } from "@radix-ui/themes";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login, logout } from "../redux/slices/auth";
 import axios from "../axios";
+import { SunIcon } from "@radix-ui/react-icons";
+import { switchTheme } from "../redux/slices/theme";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,10 @@ const Header = () => {
   const handleLogOut = () => {
     dispatch(logout());
     window.localStorage.removeItem("token");
+  };
+  const theme = window.localStorage.getItem("theme");
+  const switchThemeHandler = () => {
+    dispatch(switchTheme())
   };
 
   useEffect(() => {
@@ -29,7 +35,7 @@ const Header = () => {
       <Link to={"/"}>
         <Button>BLOG</Button>
       </Link>
-      <Flex gap={"2"}>
+      <Flex gap={"3"}>
         {isAuth.data ? (
           <>
             <Link to={"/add-post"}>
@@ -49,6 +55,10 @@ const Header = () => {
             </Link>
           </>
         )}
+        <Flex align={"center"} gap={"1"}>
+          <SunIcon />
+          <Switch className="cursor-pointer" onClick={switchThemeHandler} />
+        </Flex>
       </Flex>
     </Flex>
   );
