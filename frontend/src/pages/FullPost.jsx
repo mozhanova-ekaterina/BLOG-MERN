@@ -12,6 +12,7 @@ const FullPost = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const theme = useSelector((state) => state.theme.color);
+  const authUserId = useSelector((state) => state.auth.data?._id);
 
   useEffect(() => {
     axios
@@ -50,6 +51,7 @@ const FullPost = () => {
                 viewsCount={data.viewsCount}
                 text={data.text}
                 theme={theme}
+                isEditable={authUserId === data.author._id}
               />
               <CommentBlock addComment={true} />
             </Flex>

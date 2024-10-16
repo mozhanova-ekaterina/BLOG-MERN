@@ -18,6 +18,7 @@ import PostSkeleton from "./Skeleton";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchPosts, removePost } from "../../redux/slices/posts";
+import Markdown from "react-markdown";
 
 const Post = ({
   _id,
@@ -50,7 +51,11 @@ const Post = ({
       <Flex direction={"column"} gap={"4"}>
         <Flex>
           {imageUrl && (
-            <img src={`http://localhost:4444/${imageUrl}`} alt="image" className="mx-auto rounded-xl"/>
+            <img
+              src={`http://localhost:4444/${imageUrl}`}
+              alt="image"
+              className="mx-auto rounded-xl"
+            />
           )}
         </Flex>
         <Flex justify={"between"}>
@@ -75,6 +80,7 @@ const Post = ({
                 className="hover:opacity-100 transition-all opacity-30 cursor-pointer"
               />
               <Pencil1Icon
+                onClick={}//???:
                 width={"25px"}
                 height={"25px"}
                 color="#3e63dd"
@@ -97,7 +103,7 @@ const Post = ({
             </Button>
           ))}
         </Flex>
-        {isFullPost && <Text>{text}</Text>}
+        {isFullPost && <Markdown className='markdown'>{text}</Markdown>}
         <Flex
           gap={"4"}
           className={theme === "dark" ? "text-white" : "text-[#1915014A]"}
