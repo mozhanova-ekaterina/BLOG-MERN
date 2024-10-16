@@ -9,7 +9,8 @@ import Registration from "./pages/Registration.jsx";
 import FullPost from "./pages/FullPost.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
-import AddPost from "./pages/AddPost/AddPost.jsx";
+import AddPost from "./pages/AddPost.jsx";
+import EditPost from "./pages/EditPost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/add-post",
     element: <AddPost />,
+  },
+  {
+    path: "/edit-post/:id",
+    element: <EditPost />,
   },
   {
     path: "/posts/:id",

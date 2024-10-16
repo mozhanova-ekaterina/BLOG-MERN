@@ -15,7 +15,7 @@ import {
 } from "@radix-ui/themes";
 import React from "react";
 import PostSkeleton from "./Skeleton";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchPosts, removePost } from "../../redux/slices/posts";
 import Markdown from "react-markdown";
@@ -36,10 +36,12 @@ const Post = ({
   isEditable,
 }) => {
   const dispatch = useDispatch();
-  const removeHandler = (id) => {
+  const navigate = useNavigate();
+  const removePostHandler = (id) => {
     dispatch(removePost(id)).then(() => {
       dispatch(fetchPosts());
     });
+    navigate(`/`);
   };
 
   if (isLoading) {
@@ -73,14 +75,14 @@ const Post = ({
           {isEditable && (
             <Flex gap={"2"}>
               <Cross1Icon
-                onClick={() => removeHandler(_id)}
+                onClick={() => removePostHandler(_id)}
                 width={"25px"}
                 height={"25px"}
                 color="#3e63dd"
                 className="hover:opacity-100 transition-all opacity-30 cursor-pointer"
               />
               <Pencil1Icon
-                onClick={}//???:
+                onClick={() => navigate(`/edit-post/${_id}`)}
                 width={"25px"}
                 height={"25px"}
                 color="#3e63dd"
@@ -103,7 +105,7 @@ const Post = ({
             </Button>
           ))}
         </Flex>
-        {isFullPost && <Markdown className='markdown'>{text}</Markdown>}
+        {isFullPost && <Markdown className="markdown">{text}</Markdown>}
         <Flex
           gap={"4"}
           className={theme === "dark" ? "text-white" : "text-[#1915014A]"}
