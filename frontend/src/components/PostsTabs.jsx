@@ -23,7 +23,7 @@ const PostsTabs = () => {
       </Tabs.List>
 
       <Tabs.Content value="new">
-        <Flex direction={"column"} gap={"4"} py={"4"}>
+        <Flex direction={"column"} gap={"4"} py={"4"} maxWidth={'100%'}>
           {(isLoading ? [...Array(5)] : posts.items).map((post, i) =>
             isLoading ? (
               <Post key={i} isLoading={true} />

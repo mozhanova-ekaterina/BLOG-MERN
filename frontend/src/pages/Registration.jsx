@@ -1,6 +1,7 @@
 import {
   Avatar,
   Button,
+  Callout,
   Card,
   Container,
   Flex,
@@ -14,6 +15,7 @@ import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/slices/auth";
 import { useNavigate } from "react-router-dom";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -67,12 +69,16 @@ const Registration = () => {
                     id="name"
                     type="text"
                     placeholder="Полное имя"
-                    className={`border p-3 rounded-md min-w-[300px]` 
-                    }
+                    className={`border p-3 rounded-md min-w-[300px]`}
                   />
-                  <Text className="mt-2 ml-2 " as="p" color="red" size={"2"}>
-                    {errors.fullname?.message}
-                  </Text>
+                  {errors.fullname && (
+                    <Callout.Root mt={"2"} size={"1"}>
+                      <Callout.Icon>
+                        <InfoCircledIcon />
+                      </Callout.Icon>
+                      <Callout.Text>{errors.fullname?.message}</Callout.Text>
+                    </Callout.Root>
+                  )}
                 </div>
                 <div>
                   <input
@@ -82,9 +88,14 @@ const Registration = () => {
                     placeholder="Введите свой email"
                     className="border p-3 rounded-md min-w-[300px]"
                   />
-                  <Text className=" mt-2 ml-2" as="p" color="red" size={"2"}>
-                    {errors.email?.message}
-                  </Text>
+                  {errors.email && (
+                    <Callout.Root mt={"2"} size={"1"}>
+                      <Callout.Icon>
+                        <InfoCircledIcon />
+                      </Callout.Icon>
+                      <Callout.Text>{errors.email?.message}</Callout.Text>
+                    </Callout.Root>
+                  )}
                 </div>
                 <div>
                   <input
@@ -94,9 +105,14 @@ const Registration = () => {
                     placeholder="Введите пароль"
                     className="border p-3 rounded-md min-w-[300px]"
                   />
-                  <Text className=" mt-2 ml-2" as="p" color="red" size={"2"}>
-                    {errors.password?.message}
-                  </Text>
+                  {errors.password && (
+                    <Callout.Root mt={"2"} size={"1"}>
+                      <Callout.Icon>
+                        <InfoCircledIcon />
+                      </Callout.Icon>
+                      <Callout.Text>{errors.password?.message}</Callout.Text>
+                    </Callout.Root>
+                  )}
                 </div>
                 <Button
                   type="submit"

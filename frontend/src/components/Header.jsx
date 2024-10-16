@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Section, Switch } from "@radix-ui/themes";
+import { Box, Button, Container, Flex, Section, Switch } from "@radix-ui/themes";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -31,40 +31,44 @@ const Header = () => {
   }, []);
 
   return (
-    <Flex gap={"2"} justify={"between"} align={"center"} height={"70px"}>
-      <Link to={"/"}>
-        <Button>BLOG</Button>
-      </Link>
-      <Flex gap={{ initial: "2", xs: "3" }}>
-        {isAuth.data ? (
-          <>
-            <Link to={"/add-post"}>
-              <Button color="orange">
-                <Box display={{initial: 'none', xs: 'block'}}>Написать статью</Box>
-                <Pencil2Icon/>
+    <Container size={3} px={{ initial: "1", sm: "3" }}>
+      <Flex gap={"2"} justify={"between"} align={"center"} height={"70px"}>
+        <Link to={"/"}>
+          <Button>BLOG</Button>
+        </Link>
+        <Flex gap={{ initial: "2", xs: "3" }}>
+          {isAuth.data ? (
+            <>
+              <Link to={"/add-post"}>
+                <Button color="orange">
+                  <Box display={{ initial: "none", xs: "block" }}>
+                    Написать статью
+                  </Box>
+                  <Pencil2Icon />
+                </Button>
+              </Link>
+              <Button onClick={handleLogOut} variant="surface">
+                Выйти
               </Button>
-            </Link>
-            <Button onClick={handleLogOut} variant="surface">
-              Выйти
-            </Button>
-          </>
-        ) : (
-          <>
-            <Link to={"/login"}>
-              <Button variant="surface">Войти</Button>
-            </Link>
-            <Link to={"/registration"}>
-              <Button>Создать аккаунт</Button>
-            </Link>
-          </>
-        )}
-        <Flex align={"center"} gap={"2"}>
-          {theme === "dark" && <MoonIcon />}
-          {theme === "light" && <SunIcon />}
-          <Switch className="cursor-pointer" onClick={switchThemeHandler} />
+            </>
+          ) : (
+            <>
+              <Link to={"/login"}>
+                <Button variant="surface">Войти</Button>
+              </Link>
+              <Link to={"/registration"}>
+                <Button>Создать аккаунт</Button>
+              </Link>
+            </>
+          )}
+          <Flex align={"center"} gap={"2"}>
+            {theme === "dark" && <MoonIcon />}
+            {theme === "light" && <SunIcon />}
+            <Switch className="cursor-pointer" onClick={switchThemeHandler} />
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </Container>
   );
 };
 

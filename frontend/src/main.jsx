@@ -6,10 +6,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Registration from "./pages/Registration.jsx";
-import AddPost from "./pages/AddPost.jsx";
 import FullPost from "./pages/FullPost.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
+import AddPost from "./pages/AddPost/AddPost.jsx";
 
 const router = createBrowserRouter([
   {

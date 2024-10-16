@@ -48,7 +48,11 @@ const Post = ({
   return (
     <Card>
       <Flex direction={"column"} gap={"4"}>
-        {imageUrl && <img src={imageUrl} alt="image" />}
+        <Flex>
+          {imageUrl && (
+            <img src={`http://localhost:4444/${imageUrl}`} alt="image" className="mx-auto rounded-xl"/>
+          )}
+        </Flex>
         <Flex justify={"between"}>
           <Flex gap={"2"} align={"center"}>
             <Avatar radius="full" fallback="A" />

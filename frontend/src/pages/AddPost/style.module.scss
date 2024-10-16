@@ -1,0 +1,37 @@
+.root{
+  width: 100%;
+	min-width: max-content;
+	border-radius: 6px;
+	background-color: white;
+	padding: 10px;
+  border: 1px solid rgb(208, 208, 208);
+}
+
+.item{
+  flex: 0 0 auto;
+	color: var(--mauve-11);
+	height: 25px;
+	padding: 0 5px;
+	border-radius: 4px;
+	display: inline-flex;
+	font-size: 13px;
+	line-height: 1;
+	align-items: center;
+	justify-content: center;  
+}
+
+.item:hover {
+	background-color: var(--violet-3);
+	color: var(--violet-11);
+}
+
+.item[data-state="on"] {
+	background-color: var(--violet-5);
+	color: var(--violet-11);
+}
+
+.separator{
+  width: 1px;
+	background-color: var(--mauve-6);
+	margin: 0 10px;
+}

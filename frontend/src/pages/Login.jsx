@@ -1,5 +1,6 @@
 import {
   Button,
+  Callout,
   Card,
   Container,
   Flex,
@@ -13,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../redux/slices/auth";
 import { useNavigate } from "react-router-dom";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -47,7 +49,7 @@ const Login = () => {
 
   return (
     <Theme accentColor="indigo" grayColor="sand" appearance={theme}>
-      <Container size={3} px={"6"}>
+      <Container size={3} px={{ initial: "3", sm: "6" }}>
         <Header />
         <Flex justify={"center"} mt={"9"}>
           <Card>
@@ -62,9 +64,14 @@ const Login = () => {
                     placeholder="Введите свой email"
                     className="border p-3 rounded-md min-w-[300px]"
                   />
-                  <Text className=" mt-2 ml-2" as="p" color="red" size={"2"}>
-                    {errors.email?.message}
-                  </Text>
+                  {errors.email && (
+                    <Callout.Root mt={"2"} size={"1"}>
+                      <Callout.Icon>
+                        <InfoCircledIcon />
+                      </Callout.Icon>
+                      <Callout.Text>{errors.email?.message}</Callout.Text>
+                    </Callout.Root>
+                  )}
                 </div>
                 <div>
                   <input
@@ -74,9 +81,14 @@ const Login = () => {
                     placeholder="Введите пароль"
                     className="border p-3 rounded-md min-w-[300px]"
                   />
-                  <Text className=" mt-2 ml-2" as="p" color="red" size={"2"}>
-                    {errors.password?.message}
-                  </Text>
+                  {errors.password && (
+                    <Callout.Root mt={"2"} size={"1"}>
+                      <Callout.Icon>
+                        <InfoCircledIcon />
+                      </Callout.Icon>
+                      <Callout.Text>{errors.password?.message}</Callout.Text>
+                    </Callout.Root>
+                  )}
                 </div>
                 <Button
                   type="submit"
