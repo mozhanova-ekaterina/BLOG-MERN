@@ -52,6 +52,7 @@ app.get("/auth/me", checkAuth, UserController.getMe);
 app.get("/posts", PostController.getAll);
 app.get("/posts/:id", PostController.getOne);
 app.get("/tags", PostController.getLastTags);
+app.get("/comments", PostController.getLastComments);
 app.delete("/posts/:id", checkAuth, PostController.remove);
 app.post(
   "/posts",

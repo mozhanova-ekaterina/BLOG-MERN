@@ -22,22 +22,19 @@ const TagsBlock = () => {
       </>
     );
   }
-  return (
-    <>
-      {tags.items.length && (
-        <Card>
-          <Heading mb={"2"}>Тэги</Heading>
-          <Flex gap={"2"} wrap={"wrap"}>
-            {tags.items.map((tag, i) => (
-              <Button key={i} variant="soft">
-                #{tag}
-              </Button>
-            ))}
-          </Flex>
-        </Card>
-      )}
-    </>
-  );
+  if (tags.items.length)
+    return (
+      <Card>
+        <Heading mb={"2"}>Тэги</Heading>
+        <Flex gap={"2"} wrap={"wrap"}>
+          {tags.items.map((tag, i) => (
+            <Button key={i} variant="soft">
+              #{tag}
+            </Button>
+          ))}
+        </Flex>
+      </Card>
+    );
 };
 
 export default TagsBlock;

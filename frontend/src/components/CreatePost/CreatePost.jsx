@@ -32,6 +32,7 @@ const CreatePost = ({ data, isNewPost }) => {
     text: "",
     tags: [],
     imageUrl: "",
+    _id: null 
   });
 
   useEffect(() => {

@@ -99,9 +99,14 @@ export const update = async (req, res) => {
         imageUrl: req.body.imageUrl,
         tags: req.body.tags,
         author: req.userId,
+        comments: req.body.comments,
+        commentsCount: req.body.comments.length,
       },
       { new: true }
-    );
+    ).populate({
+      path: "author",
+      select: ["fullname", "avatarUrl"],
+    });
 
     if (!doc) {
       return res.status(404).json({ message: "Статья не найдена" });
@@ -121,15 +126,35 @@ export const getLastTags = async (req, res) => {
     const posts = await Post.find().limit(5).exec(); //берём только последние 5 статей
     const tags = posts
       .map((post) => post.tags)
-      .flat()//[[tags],[tags],[tags]]=>[tags,tags,tags]
+      .flat() //[[tags],[tags],[tags]]=>[tags,tags,tags]
       .slice(0, 5); //берем последние 5 тэгов из этих статей
 
-    if(!tags) return res.status(404).json({message: 'Не удалось получить тэги'})
+    if (!tags)
+      return res.status(404).json({ message: "Не удалось получить тэги" });
     res.json(tags);
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: "Не удалось получить тэги",
+    });
+  }
+};
+
+export const getLastComments = async (req, res) => {
+  try {
+    const posts = await Post.find().limit(5).exec();
+    const comments = posts
+      .map((post) => post.comments)
+      .flat()
+      .slice(0, 5);
+
+    if (!comments)
+      return res.status(404).json({ message: "Не удалось получить комментарии" });
+    res.json(comments);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Не удалось получить комментарии",
     });
   }
 };

@@ -6,13 +6,14 @@ import Header from "../components/Header";
 import { useParams } from "react-router-dom";
 import axios from "../axios";
 import { useSelector } from "react-redux";
+import CommentsList from "../components/CommentsList";
 
 const FullPost = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const theme = useSelector((state) => state.theme.color);
-  const authUserId = useSelector((state) => state.auth.data?._id);
+  const authUser = useSelector((state) => state.auth.data);
 
   useEffect(() => {
     axios
@@ -26,6 +27,19 @@ const FullPost = () => {
         alert("Ошибка при получении статьи");
       });
   }, []);
+
+  const updatePost = async (comments) => {
+    try {
+      const body = {
+        ...data,
+        comments: comments,
+      };      
+      const { res } = await axios.patch(`/posts/${id}`, body);
+    } catch (error) {
+      console.warn(error);
+      alert("Не удалось обновить статью");
+    }
+  };
 
   return (
     <Theme accentColor="indigo" grayColor="sand" appearance={theme}>
@@ -51,9 +65,15 @@ const FullPost = () => {
                 viewsCount={data.viewsCount}
                 text={data.text}
                 theme={theme}
-                isEditable={authUserId === data.author._id}
+                isEditable={authUser?._id === data.author._id}
               />
-              <CommentBlock addComment={true} />
+              <CommentsList
+                authUser={authUser}
+                editable
+                postId={data._id}
+                data={data.comments}
+                updatePost={updatePost}
+              />
             </Flex>
           </>
         )}
