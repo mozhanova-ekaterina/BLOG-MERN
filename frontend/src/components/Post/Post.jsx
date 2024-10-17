@@ -15,9 +15,9 @@ import {
 } from "@radix-ui/themes";
 import React from "react";
 import PostSkeleton from "./Skeleton";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchPosts, removePost } from "../../redux/slices/posts";
+import { removePost } from "../../redux/slices/posts";
 import Markdown from "react-markdown";
 
 const Post = ({
@@ -37,11 +37,14 @@ const Post = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const removePostHandler = (id) => {
-    dispatch(removePost(id)).then(() => {
-      dispatch(fetchPosts());
-    });
-    navigate(`/`);
+    if (window.confirm("Вы действительно хотите удалить статью?")) {
+      dispatch(removePost(id));
+      if (location.pathname != "/") {
+        navigate(`/`);
+      }
+    }
   };
 
   if (isLoading) {
@@ -51,15 +54,15 @@ const Post = ({
   return (
     <Card>
       <Flex direction={"column"} gap={"4"}>
-        <Flex>
-          {imageUrl && (
+        {imageUrl && (
+          <Flex>
             <img
               src={`http://localhost:4444/${imageUrl}`}
               alt="image"
               className="mx-auto rounded-xl"
             />
-          )}
-        </Flex>
+          </Flex>
+        )}
         <Flex justify={"between"}>
           <Flex gap={"2"} align={"center"}>
             <Avatar radius="full" fallback="A" />

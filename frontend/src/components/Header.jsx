@@ -1,4 +1,11 @@
-import { Box, Button, Container, Flex, Section, Switch } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Section,
+  Switch,
+} from "@radix-ui/themes";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,8 +19,10 @@ const Header = () => {
   const isAuth = useSelector((state) => state.auth);
   const theme = useSelector((state) => state.theme.color);
   const handleLogOut = () => {
-    dispatch(logout());
-    window.localStorage.removeItem("token");
+    if (window.confirm("Вы действительно хотите выйти?")) {
+      dispatch(logout());
+      window.localStorage.removeItem("token");
+    }
   };
   const switchThemeHandler = () => {
     dispatch(switchTheme());

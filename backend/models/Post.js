@@ -30,6 +30,11 @@ const PostSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    comments: {
+      type: Array,
+      default: [],
+      ref: 'Comment',
+    }
   },
   {
     timestamps: true,

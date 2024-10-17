@@ -214,7 +214,7 @@ const CreatePost = ({ data, isNewPost }) => {
         ></TextArea>
         <Flex gap={"2"} align={"center"}>
           <Button onClick={onSubmit}>Опубликовать</Button>
-          <Button variant="outline">Отмена</Button>
+          <Button variant="outline" onClick={() => navigate("/")}>Отмена</Button>
         </Flex>
       </Flex>
     </Card>
@@ -222,3 +222,6 @@ const CreatePost = ({ data, isNewPost }) => {
 };
 
 export default CreatePost;
+
+//TODO:
+//убрать лишнюю загрузку картинок на сервер

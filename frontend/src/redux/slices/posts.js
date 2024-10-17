@@ -32,6 +32,7 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //Posts
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.posts.items = action.payload;
       state.posts.status = "loaded";
@@ -44,6 +45,7 @@ export const postsSlice = createSlice({
       state.posts.items = [];
       state.posts.status = "loading";
     });
+    //Tags
     builder.addCase(fetchTags.fulfilled, (state, action) => {
       state.tags.items = action.payload;
       state.tags.status = "loaded";
@@ -56,10 +58,14 @@ export const postsSlice = createSlice({
       state.tags.items = [];
       state.tags.status = "loading";
     });
-    // builder.addCase(removePost.fulfilled, (state, action) => {
-    //   state.posts.items = action.payload;
-    //   state.posts.status = "loaded";
-    // });
+    //RemovePost
+    builder.addCase(removePost.fulfilled, (state, action) => {
+      state.posts.items = state.posts.items.filter((post) => post._id !== action.meta.arg);
+      state.posts.status = "loaded";
+    });
+    builder.addCase(removePost.rejected, (state) => {
+      state.posts.status = "loaded";
+    });
   },
 });
 
