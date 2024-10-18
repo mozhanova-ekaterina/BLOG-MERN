@@ -10,7 +10,11 @@ const AddPost = () => {
     <Theme accentColor="indigo" grayColor="sand" appearance={theme}>
       <Container size={3} px={{ initial: "1", sm: "6" }}>
         <Header />
-        <CreatePost data={{ title: "", text: "", tags: [], imageUrl: "" }} />;
+        <CreatePost
+          isNewPost
+          data={{ title: "", text: "", tags: [], imageUrl: "" }}
+        />
+        ;
       </Container>
     </Theme>
   );

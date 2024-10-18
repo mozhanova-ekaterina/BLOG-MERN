@@ -17,7 +17,7 @@ import React from "react";
 import PostSkeleton from "./Skeleton";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { removePost } from "../../redux/slices/posts";
+import { fetchComments, fetchTags, removePost } from "../../redux/slices/posts";
 import Markdown from "react-markdown";
 
 const Post = ({
@@ -40,7 +40,10 @@ const Post = ({
   const location = useLocation();
   const removePostHandler = (id) => {
     if (window.confirm("Вы действительно хотите удалить статью?")) {
-      dispatch(removePost(id));
+      dispatch(removePost(id)).then(() => {
+        dispatch(fetchComments())
+        dispatch(fetchTags())
+      });
       if (location.pathname != "/") {
         navigate(`/`);
       }
@@ -131,3 +134,4 @@ export default Post;
 
 //TODO:
 //https://www.radix-ui.com/themes/docs/components/badge
+

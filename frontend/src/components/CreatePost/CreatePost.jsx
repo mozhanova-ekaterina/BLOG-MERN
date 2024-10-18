@@ -32,7 +32,7 @@ const CreatePost = ({ data, isNewPost }) => {
     text: "",
     tags: [],
     imageUrl: "",
-    _id: null 
+    _id: null,
   });
 
   useEffect(() => {
@@ -59,11 +59,11 @@ const CreatePost = ({ data, isNewPost }) => {
     try {
       setLoading(true);
       if (isNewPost) {
-        const { data } = await axios.patch(`/posts/${fields._id}`, fields);
+        const { data } = await axios.post("/posts", fields);
         const id = data._id;
         navigate(`/posts/${id}`);
       } else {
-        const { data } = await axios.post("/posts", fields);
+        const { data } = await axios.patch(`/posts/${fields._id}`, fields);
         const id = data._id;
         navigate(`/posts/${id}`);
       }
@@ -214,8 +214,12 @@ const CreatePost = ({ data, isNewPost }) => {
           onChange={(e) => setFields({ ...fields, text: e.target.value })}
         ></TextArea>
         <Flex gap={"2"} align={"center"}>
-          <Button onClick={onSubmit}>Опубликовать</Button>
-          <Button variant="outline" onClick={() => navigate("/")}>Отмена</Button>
+          <Button onClick={onSubmit}>
+            {isNewPost ? "Опубликовать" : "Сохранить"}
+          </Button>
+          <Button variant="outline" onClick={() => navigate("/")}>
+            Отмена
+          </Button>
         </Flex>
       </Flex>
     </Card>

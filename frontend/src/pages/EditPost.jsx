@@ -26,7 +26,7 @@ const EditPost = () => {
     <Theme accentColor="indigo" grayColor="sand" appearance={theme}>
       <Container size={3} px={{ initial: "1", sm: "6" }}>
         <Header />
-        <CreatePost data={data} isNewPost />;
+        <CreatePost data={data} />;
       </Container>
     </Theme>
   );

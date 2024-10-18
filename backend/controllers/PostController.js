@@ -142,11 +142,11 @@ export const getLastTags = async (req, res) => {
 
 export const getLastComments = async (req, res) => {
   try {
-    const posts = await Post.find().limit(5).exec();
+    const posts = await Post.find().limit(20).exec();
     const comments = posts
       .map((post) => post.comments)
       .flat()
-      .slice(0, 5);
+      .slice(0, 20);
 
     if (!comments)
       return res.status(404).json({ message: "Не удалось получить комментарии" });
