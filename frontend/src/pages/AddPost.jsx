@@ -14,7 +14,6 @@ const AddPost = () => {
           isNewPost
           data={{ title: "", text: "", tags: [], imageUrl: "" }}
         />
-        ;
       </Container>
     </Theme>
   );

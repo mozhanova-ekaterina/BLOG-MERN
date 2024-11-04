@@ -223,8 +223,8 @@ const CreatePost = ({ data, isNewPost }) => {
         </Flex>
       </Flex>
     </Card>
-  );
-};
+  )
+}
 
 export default CreatePost;
 
